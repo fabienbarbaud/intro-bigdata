@@ -33,6 +33,7 @@ Temps réel, milliseconde, haute fréquence, ...
 ## Volume
 
 ![](images/vni-hyperconnectivity-wp_0.jpg "Cisco VNI forecasts 278 EB per month of IP traffic by 2021")
+
 [The Zettabyte Era: Trends and Analysis](https://www.cisco.com/c/en/us/solutions/collateral/service-provider/visual-networking-index-vni/vni-hyperconnectivity-wp.html)
 
 ---
@@ -42,6 +43,7 @@ Temps réel, milliseconde, haute fréquence, ...
 ## Volume
 
 ![](images/volume_data.png "Internet of Things is driving Big data volumes")
+
 [Be a Smarter Business by Unlocking your Internet of Things](http://mqug.org.uk/downloads/201407/201407%20-%20MQM03%20-%20Smarter%20Business%20by%20Unlocking%20IoT.pdf)
 
 ---
@@ -195,6 +197,7 @@ WordPress
 ## HDFS
 
 ![](images/hdfsarchitecture.gif)
+
 [HDFS Architecture Guide](https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html)
 
 ---
@@ -248,6 +251,7 @@ https://github.com/sequenceiq/hadoop-docker
 ## YARN
 
 ![](images/yarn_architecture.gif)
+
 [Apache Hadoop YARN](https://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html)
 
 ---
@@ -268,5 +272,6 @@ https://github.com/sequenceiq/hadoop-docker
 ## MapReduce
 
 ![](images/Mapreduce.png)
+
 [Wikipedia](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Mapreduce.png/500px-Mapreduce.png)
 
