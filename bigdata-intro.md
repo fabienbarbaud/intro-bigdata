@@ -269,9 +269,61 @@ https://github.com/sequenceiq/hadoop-docker
 
 # Hadoop
 
+## YARN - Web UI
+
+```
+$ docker run -p 8088:8088 -it sequenceiq/hadoop-docker:2.7.1 \
+  /etc/bootstrap.sh -bash
+```
+
+http://host:8088
+
+---
+
+# Hadoop
+
 ## MapReduce
 
 ![](images/Mapreduce.png)
 
 [Wikipedia](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Mapreduce.png/500px-Mapreduce.png)
+
+---
+
+# Hadoop
+
+## Par l'exemple : WordCount
+
+Input (flux d'entrée) :
+
+```text
+Conseil tenu par les rats
+
+Un chat, nommé Rodilardus,
+Faisait des rats telle déconfiture
+Que l'on n'en voyait presque plus,
+Tant il en avait mis dedans la sépulture.
+Le peu qu'il en restait n'osant quitter son trou
+...
+```
+
+---
+
+# Hadoop
+
+## Par l'exemple : WordCount
+
+Mapper :
+
+```python
+import sys
+
+for line in sys.stdin:
+    line = line.strip()
+    keys = line.split()
+    for key in keys:
+        value = 1
+        print('%s\t%d' % (key, value))
+```
+
 
