@@ -11,12 +11,12 @@ for input_line in sys.stdin:
     value = int(value)
 
     if last_key == this_key:
-        running_total += value 
+        running_total += value
     else:
         if last_key:
-            print( "%s\t%d" % (last_key, running_total) )
+            print("%s\t%d" % (last_key, running_total))
         running_total = value
         last_key = this_key
 
 if last_key == this_key:
-    print( "%s\t%d" % (last_key, running_total) )
+    print("%s\t%d" % (last_key, running_total))

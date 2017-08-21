@@ -288,6 +288,12 @@ http://host:8088
 
 [Wikipedia](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Mapreduce.png/500px-Mapreduce.png)
 
+*input* (k1, v1) 
+-> **map** -> (k2, v2) 
+-> **combine** -> (k2, v2) 
+-> **reduce** -> (k3, v3) 
+*output*
+
 ---
 
 # Hadoop
@@ -325,5 +331,77 @@ for line in sys.stdin:
         value = 1
         print('%s\t%d' % (key, value))
 ```
+
+---
+
+# Hadoop
+
+## Par l'exemple : WordCount
+
+Reducer :
+
+---
+
+```python
+import sys
+
+last_key = None
+running_total = 0
+
+for input_line in sys.stdin:
+    input_line = input_line.strip()
+    this_key, value = input_line.split("\t", 1)
+    value = int(value)
+
+    if last_key == this_key:
+        running_total += value
+    else:
+        if last_key:
+            print("%s\t%d" % (last_key, running_total))
+        running_total = value
+        last_key = this_key
+
+if last_key == this_key:
+    print("%s\t%d" % (last_key, running_total))
+```
+
+---
+
+# Hadoop
+
+## Par l'exemple : WordCount
+
+```
+bash-4.1# cat conseil-tenu-par-les-rats.txt | ./mapper.py \
+| sort | ./reducer.py
+```
+
+```
+bash-4.1# bin/hadoop fs -mkdir wordcount
+bash-4.1# bin/hadoop fs -put conseil-tenu-par-les-rats.txt \
+wordcount/fable.txt
+bash-4.1# bin/hadoop jar share/hadoop/tools/lib/hadoop-streaming-2.7.1.jar \
+ -mapper "python mapper.py" \
+ -reducer "python reducer.py" \
+ -input "wordcount/fable.txt" \
+ -output "wordcount/output"
+```
+
+```
+bash-4.1# bin/hadoop fs -cat wordcount/output/*
+```
+
+---
+
+# Hadoop
+
+## Exercice
+
+- Récupérez une source de données sur [data.gouv.fr](https://www.data.gouv.fr/fr/)
+- Importez ces données en HDFS
+- Développez un code MapReduce en Python pour en extraire une nouvelle information
+- Représentez-là sous forme de graphique
+
+
 
 
