@@ -399,9 +399,240 @@ bash-4.1# bin/hadoop fs -cat wordcount/output/*
 
 - Récupérez une source de données sur [data.gouv.fr](https://www.data.gouv.fr/fr/)
 - Importez ces données en HDFS
-- Développez un code MapReduce en Python pour en extraire une nouvelle information
+- Développez un code *MapReduce* en Python pour en extraire une nouvelle information
 - Représentez-là sous forme de graphique
 
+---
 
+# HBase
+
+![](images/hbase_logo_with_orca_large.png)
+
+- Base de données orientée colonnes
+- Installé sur le système de fichier HDFS
+
+---
+
+# HBase
+
+## Système de stockage
+
+![](images/hbase-row.png)
+
+[HBase Schema](https://goranzugic.wordpress.com/2016/04/11/hbase-schema/)
+
+---
+
+# HBase
+
+## Système de stockage
+
+- Une *table* est une collection de *rows*
+- Une *row* est une collection de *columns family*
+- Une *column family* est une collection de *columns*
+- Une *column* est une collection de clé/valeur 
+
+---
+
+# HBase
+
+## Système de stockage
+
+```json
+{
+"row1": {"1": {"color": "green",
+               "size": 25},
+         "2": {"weight": 52,
+               "size": 18}
+        },
+"row2": {"1": {"color": "blue"},
+         "2": {"height": 192,
+               "size": 43}
+        }
+}
+```
+
+---
+
+# HBase
+
+## HBase Shell
+
+```
+$ docker pull dajobe/hbase
+$ mkdir data
+$ docker run --name=hbase-docker -h hbase-docker -d \
+-v $PWD/data:/data dajobe/hbase
+$ docker exec -it hbase-docker bash
+root@hbase-docker:/# hbase shell
+```
+
+---
+
+# HBase
+
+## HBase Shell
+
+[HBase Tutorial](https://www.tutorialspoint.com/hbase/hbase_security.htm)
+
+```
+> status
+1 active master, 0 backup masters, 1 servers, 1 dead, 2.0000 average load
+```
+
+```
+> list
+TABLE
+0 row(s) in 0.0820 seconds
+
+=> []
+```
+
+---
+
+# HBase
+
+## HBase Shell - Création d'une table
+
+```
+> create 'emp', 'personal data', 'professional data'
+0 row(s) in 1.3160 seconds
+
+=> Hbase::Table - emp
+```
+
+```
+> list
+TABLE
+emp
+1 row(s) in 0.0440 seconds
+
+=> ["emp"]
+```
+
+---
+
+# HBase
+
+## HBase Shell - Désactivation
+
+```
+> disable 'emp'
+0 row(s) in 2.3980 seconds
+```
+
+```
+> is_disabled 'emp'
+true
+0 row(s) in 0.0110 seconds
+```
+
+---
+
+# HBase
+
+## HBase Shell - Activation
+
+```
+> enable 'emp'
+0 row(s) in 1.3110 seconds
+```
+
+```
+> is_enabled 'emp'
+true
+0 row(s) in 0.0280 seconds
+```
+
+---
+
+# HBase
+
+## HBase Shell - Ecriture
+
+```
+> put 'emp','1','personal data:name','raju'
+> put 'emp','1','personal data:city','hyderabad'
+> put 'emp','1','professional data:designation','manager'
+> put 'emp','1','professional data:salary','50000'
+```
+
+```
+> scan 'emp'
+```
+
+---
+
+# HBase
+
+## HBase Shell - Mise à jour
+
+```
+> put 'emp','1','personal data:city','Delhi'
+ROW  COLUMN+CELL
+ 1   column=personal data:city, timestamp=1503511522300, value=Delhi
+ 1   column=personal data:name, timestamp=1503511282272, value=raju
+ 1   column=professional data:designation, timestamp=1503511332216, value=manager
+ 1   column=professional data:salary, timestamp=1503511341265, value=50000
+1 row(s) in 0.0250 seconds
+```
+
+---
+
+# HBase
+
+## HBase Shell - Accès
+
+```
+> get 'emp', '1'
+COLUMN                           CELL
+ personal data:city              timestamp=1503511522300, value=Delhi
+ personal data:name              timestamp=1503511282272, value=raju
+ professional data:designation   timestamp=1503511332216, value=manager
+ professional data:salary        timestamp=1503511341265, value=50000
+4 row(s) in 0.0610 seconds
+```
+
+---
+
+# HBase
+
+## HBase Shell - Accès à une colonne
+
+```
+> get 'emp', '1', {COLUMN => 'personal data:name'}
+COLUMN                 CELL
+ personal data:name    timestamp=1503511282272, value=raju
+1 row(s) in 0.0250 seconds
+```
+
+---
+
+# HBase
+
+## HBase Shell - Suppression
+
+```
+> delete 'emp', '1', 'personal data:city'
+> deleteall 'emp','1'
+> scan 'emp'
+```
+
+---
+
+# HBase
+
+## HBase Shell - Sécurité
+
+- **R** lecture
+- **W** écriture
+- **X** exécution
+- **C** création
+- **A** admin
+
+```
+> grant 'bobsmith', 'RWXCA'
+> revoke 'bobsmith'
+```
 
 
