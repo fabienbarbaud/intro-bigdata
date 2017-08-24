@@ -404,6 +404,56 @@ bash-4.1# bin/hadoop fs -cat wordcount/output/*
 
 ---
 
+# Base de données et Big Data
+
+## Les principes fondamentaux
+
+- ***Partitioning*** : basé sur les colonnes
+- ***Sharding*** : basé sur les clés d'une ligne
+
+---
+
+# Base de données et Big Data
+
+## Partitioning
+
+| Col1 | Col2 | Col3 | Col4 | Col5 | Col6 |
+| --- | --- | --- | --- | --- | --- |
+| _ |  |  | | | | 
+
+__
+
+| Col1 | Col2 | Col3 | Col4 |
+| --- | --- | --- | --- |
+| _ |  |  | |
+
+| Col5 | Col6 |
+| --- | --- |
+| _ |  |
+
+---
+
+# Base de données et Big Data
+
+## Sharding - Horizontal partitioning
+
+| Key | Col1 | Col2 | Col3 |
+| --- | --- | --- | --- |
+| x |  |  | |
+| y |  |  | |
+| z |  |  | |
+
+| Key | Col1 | Col2 | Col3 |
+| --- | --- | --- | --- |
+| x |  |  | |
+
+| Key | Col1 | Col2 | Col3 |
+| --- | --- | --- | --- |
+| x |  |  | |
+| z |  |  | |
+
+---
+
 # HBase
 
 ![](images/hbase_logo_with_orca_large.png)
