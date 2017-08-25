@@ -449,7 +449,7 @@ __
 
 | Key | Col1 | Col2 | Col3 |
 | --- | --- | --- | --- |
-| x |  |  | |
+| y |  |  | |
 | z |  |  | |
 
 ---
@@ -685,4 +685,70 @@ COLUMN                 CELL
 > revoke 'bobsmith'
 ```
 
+---
 
+# Cassandra
+
+![](images/Cassandra_logo.png)
+
+- Tolérance à la panne
+- Décentralisé
+- Scalable
+
+---
+
+![](images/cassandra_write_path.png)
+
+[Netflix Architecture Tutorial](https://www.slideshare.net/adrianco/netflix-architecture-tutorial-at-gluecon)
+
+---
+
+# Cassandra
+
+## Tutorial
+
+```
+$ docker pull cassandra
+$ docker run --name=cassandra -d library/cassandra
+$ docker exec -it cassandra bash
+root@a6b74edad198:/#
+```
+
+[Cassandra Tutorial](https://www.tutorialspoint.com/cassandra/index.htm)
+
+---
+
+# Elasticsearch
+
+![](images/Elasticsearch-Logo-Color-V.png)
+
+- Indexation et recherche de données
+- Moteur [Lucene](https://fr.wikipedia.org/wiki/Lucene)
+- *API HTTP RESTful* en *JSON*
+
+---
+
+# Elasticsearch
+
+![](images/InvertedIndex.png)
+
+[Elasticsearch Tutorial - Elasticsearch Storage Architecture : Analysis and Inverted Indexes](http://siddhumehta.blogspot.fr/2014/06/elasticsearch-tutorial-inverted-index.html)
+
+---
+
+# Elasticsearch
+
+## Tutorial
+
+```text
+$ docker pull docker.elastic.co/elasticsearch/elasticsearch:5.5.2
+$ docker run --name=elasticsearch -d -p 9200:9200 \
+-e "http.host=0.0.0.0" -e "transport.host=127.0.0.1" \
+docker.elastic.co/elasticsearch/elasticsearch:5.5.2
+$ curl -u elastic http://127.0.0.1:9200/
+```
+
+Utilisateur : elastic
+Mot de passe : changeme
+
+[Elasticsearch Tutorial](https://www.tutorialspoint.com/elasticsearch/index.htm)
