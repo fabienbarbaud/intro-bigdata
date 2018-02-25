@@ -741,10 +741,10 @@ root@a6b74edad198:/#
 ## Tutorial
 
 ```text
-$ docker pull docker.elastic.co/elasticsearch/elasticsearch:5.5.2
+$ docker pull docker.elastic.co/elasticsearch/elasticsearch:5.5.3
 $ docker run --name=elasticsearch -d -p 9200:9200 \
 -e "http.host=0.0.0.0" -e "transport.host=127.0.0.1" \
-docker.elastic.co/elasticsearch/elasticsearch:5.5.2
+docker.elastic.co/elasticsearch/elasticsearch:5.5.3
 $ curl -u elastic http://127.0.0.1:9200/
 ```
 
