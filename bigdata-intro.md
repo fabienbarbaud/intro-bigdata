@@ -276,7 +276,7 @@ $ docker run -p 8088:8088 -it sequenceiq/hadoop-docker:2.7.1 \
   /etc/bootstrap.sh -bash
 ```
 
-http://host:8088
+http://localhost:8088
 
 ---
 
@@ -718,6 +718,111 @@ root@a6b74edad198:/#
 
 ---
 
+# Cassandra
+
+## cqlsh
+
+```
+root@dce317a979a6:/# cqlsh
+Connected to Test Cluster at 127.0.0.1:9042.
+[cqlsh 5.0.1 | Cassandra 3.11.4 | CQL spec 3.4.4 | Native protocol v4]
+Use HELP for help.
+cqlsh>
+```
+
+Cassandra Query Language (CQL)
+
+---
+
+# Cassandra
+
+## Keyspace
+
+```
+cqlsh> CREATE KEYSPACE tutorialspoint
+WITH replication = {'class':'SimpleStrategy', 
+'replication_factor' : 3};
+cqlsh> DESCRIBE keyspaces;
+```
+
+---
+
+# Cassandra
+
+## Table
+
+```
+cqlsh> USE tutorialspoint;
+cqlsh:tutorialspoint> CREATE TABLE emp(
+   emp_id int PRIMARY KEY,
+   emp_name text,
+   emp_city text,
+   emp_sal varint,
+   emp_phone varint
+   );
+cqlsh:tutorialspoint> select * from emp;
+```
+
+---
+
+# Cassandra
+
+## Créer
+
+```
+cqlsh:tutorialspoint> INSERT INTO emp 
+(emp_id, emp_name, emp_city, emp_phone, emp_sal) 
+VALUES (1,'ram', 'Hyderabad', 9848022338, 50000);
+cqlsh:tutorialspoint> INSERT INTO emp 
+(emp_id, emp_name, emp_city, emp_phone, emp_sal) 
+VALUES (2,'robin', 'Hyderabad', 9848022339, 40000);
+cqlsh:tutorialspoint> INSERT INTO emp 
+(emp_id, emp_name, emp_city, emp_phone, emp_sal) 
+VALUES (3,'rahman', 'Chennai', 9848022330, 45000);
+cqlsh:tutorialspoint> SELECT * FROM emp;
+```
+
+---
+
+# Cassandra
+
+## Mettre à jour
+
+```
+cqlsh:tutorialspoint> UPDATE emp 
+SET emp_city='Delhi',emp_sal=50000
+WHERE emp_id=2;
+cqlsh:tutorialspoint> SELECT * FROM emp;
+```
+
+---
+
+# Cassandra
+
+## Lire
+
+```
+cqlsh:tutorialspoint> SELECT emp_name, emp_sal from emp;
+cqlsh:tutorialspoint> SELECT * FROM emp WHERE emp_sal=50000;
+cqlsh:tutorialspoint> CREATE INDEX ON emp(emp_sal);
+cqlsh:tutorialspoint> SELECT * FROM emp WHERE emp_sal=50000;
+```
+
+---
+
+# Cassandra
+
+## Supprimer
+
+```
+cqlsh:tutorialspoint> DELETE emp_sal FROM emp WHERE emp_id=3;
+cqlsh:tutorialspoint> SELECT * FROM emp;
+cqlsh:tutorialspoint> DELETE FROM emp WHERE emp_id=3;
+cqlsh:tutorialspoint> SELECT * FROM emp;
+```
+
+---
+
 # Elasticsearch
 
 ![](images/Elasticsearch-Logo-Color-V.png)
@@ -741,10 +846,10 @@ root@a6b74edad198:/#
 ## Tutorial
 
 ```text
-$ docker pull docker.elastic.co/elasticsearch/elasticsearch:5.5.3
+$ docker pull docker.elastic.co/elasticsearch/elasticsearch:7.2.1
 $ docker run --name=elasticsearch -d -p 9200:9200 \
 -e "http.host=0.0.0.0" -e "transport.host=127.0.0.1" \
-docker.elastic.co/elasticsearch/elasticsearch:5.5.3
+docker.elastic.co/elasticsearch/elasticsearch:7.2.1
 $ curl -u elastic http://127.0.0.1:9200/
 ```
 
