@@ -1,3 +1,7 @@
+---
+marp: true
+---
+
 <!-- page_number: true -->
 <!-- footer: Introduction à la Big Data -->
 
@@ -232,17 +236,15 @@ hadoop fs -mv
 ## HDFS - Exercice pratique
 
 ```
-$ docker pull sequenceiq/hadoop-docker:2.7.1
-$ docker run -it sequenceiq/hadoop-docker:2.7.1 \
-  /etc/bootstrap.sh -bash
-bash-4.1# cd $HADOOP_PREFIX
-bash-4.1# bin/hadoop version
-bash-4.1# bin/hadoop fs -mkdir test
-bash-4.1# bin/hadoop fs -ls
-bash-4.1# bin/hadoop fs
+$ git clone https://github.com/fabienbarbaud/docker-hadoop.git
+$ docker-compose up -d
+$ docker-compose run --rm client bash
+root@0f0355fc41b0:/# hadoop version
+root@0f0355fc41b0:/# hdfs dfs -mkdir /input
+root@0f0355fc41b0:/# hdfs dfs -ls /
 ```
 
-https://github.com/sequenceiq/hadoop-docker
+Fork https://github.com/big-data-europe/docker-hadoop
 
 ---
 
@@ -264,19 +266,6 @@ https://github.com/sequenceiq/hadoop-docker
 - ***Node Manager :*** fournit les ressources du nœud sous forme de *Container*
 - ***Application Master :*** coordonne l'exécution des tâches
 - ***Container :*** exécute les tâches
-
----
-
-# Hadoop
-
-## YARN - Web UI
-
-```
-$ docker run -p 8088:8088 -it sequenceiq/hadoop-docker:2.7.1 \
-  /etc/bootstrap.sh -bash
-```
-
-http://localhost:8088
 
 ---
 
@@ -324,9 +313,9 @@ Mapper :
 ```python
 import sys
 
-for line in sys.stdin:
-    line = line.strip()
-    keys = line.split()
+for input_line in sys.stdin:
+    input_line = input_line.strip()
+    keys = input_line.split()
     for key in keys:
         value = 1
         print('%s\t%d' % (key, value))
@@ -372,23 +361,24 @@ if last_key == this_key:
 ## Par l'exemple : WordCount
 
 ```
-bash-4.1# cat conseil-tenu-par-les-rats.txt | ./mapper.py \
-| sort | ./reducer.py
+root@0f0355fc41b0:/# cd /files/wordcount
+root@0f0355fc41b0:/files/wordcount# cat conseil-tenu-par-les-rats.txt | ./mapper.py | sort | ./reducer.py
 ```
 
 ```
-bash-4.1# bin/hadoop fs -mkdir wordcount
-bash-4.1# bin/hadoop fs -put conseil-tenu-par-les-rats.txt \
-wordcount/fable.txt
-bash-4.1# bin/hadoop jar share/hadoop/tools/lib/hadoop-streaming-2.7.1.jar \
- -mapper "python mapper.py" \
- -reducer "python reducer.py" \
- -input "wordcount/fable.txt" \
- -output "wordcount/output"
+root@0f0355fc41b0:/files/wordcount# hdfs dfs -mkdir /wordcount
+root@0f0355fc41b0:/files/wordcount# hdfs dfs -put conseil-tenu-par-les-rats.txt /wordcount/fable.txt
+root@0f0355fc41b0:/files/wordcount# hadoop jar /opt/hadoop-3.2.1/share/hadoop/tools/lib/hadoop-streaming-3.2.1.jar \
+ -mapper "mapper.py" \
+ -reducer "reducer.py" \
+ -file "mapper.py" \
+ -file "reducer.py" \
+ -input "/wordcount/fable.txt" \
+ -output "/wordcount/output"
 ```
 
 ```
-bash-4.1# bin/hadoop fs -cat wordcount/output/*
+root@0f0355fc41b0:/files/wordcount# hdfs dfs -cat /wordcount/output/*
 ```
 
 ---
@@ -400,7 +390,6 @@ bash-4.1# bin/hadoop fs -cat wordcount/output/*
 - Récupérez une source de données sur [data.gouv.fr](https://www.data.gouv.fr/fr/)
 - Importez ces données en HDFS
 - Développez un code *MapReduce* en Python pour en extraire une nouvelle information
-- Représentez-là sous forme de graphique
 
 ---
 
