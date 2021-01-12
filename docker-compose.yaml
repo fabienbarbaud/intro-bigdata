@@ -7,3 +7,4 @@ services:
       - ./:/home/marp/app/:rw
     environment:
       - LANG=$LANG
+    command: bigdata-intro.md --pdf --allow-local-files
