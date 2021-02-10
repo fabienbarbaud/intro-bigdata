@@ -237,6 +237,7 @@ hadoop fs -mv
 
 ```
 $ git clone https://github.com/fabienbarbaud/docker-hadoop.git
+$ cd docker-hadoop
 $ docker-compose up -d
 $ docker-compose run --rm client bash
 root@0f0355fc41b0:/# hadoop version
@@ -835,14 +836,11 @@ cqlsh:tutorialspoint> SELECT * FROM emp;
 ## Tutorial
 
 ```text
-$ docker pull docker.elastic.co/elasticsearch/elasticsearch:7.2.1
-$ docker run --name=elasticsearch -d -p 9200:9200 \
--e "http.host=0.0.0.0" -e "transport.host=127.0.0.1" \
-docker.elastic.co/elasticsearch/elasticsearch:7.2.1
-$ curl -u elastic http://127.0.0.1:9200/
+$ git clone https://github.com/fabienbarbaud/docker-elasticsearch.git
+$ cd docker-elasticsearch
+$ docker-compose up
 ```
 
-Utilisateur : elastic
-Mot de passe : changeme
+http://localhost:5601
 
 [Elasticsearch Tutorial](https://www.tutorialspoint.com/elasticsearch/index.htm)
